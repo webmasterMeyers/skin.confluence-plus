@@ -6,34 +6,49 @@ import xbmcaddon
 import xbmcgui
 import subprocess
 import sys
+import json
+import os
 
 # Get addon handle
 addon = xbmcaddon.Addon()
 addon_name = addon.getAddonInfo('name')
 
-# Streaming services configuration
-STREAMING_SERVICES = [
-    {
-        'name': 'Angel Studios',
-        'url': 'https://www.angel.com/',
-        'icon': 'DefaultVideo.png'
-    },
-    {
-        'name': 'PureFlix',
-        'url': 'https://www.pureflix.com/',
-        'icon': 'DefaultVideo.png'
-    },
-    {
-        'name': 'Dove Channel',
-        'url': 'https://www.dovechannel.com/',
-        'icon': 'DefaultVideo.png'
-    },
-    {
-        'name': 'YouTube',
-        'url': 'https://www.youtube.com/',
-        'icon': 'DefaultVideo.png'
-    }
-]
+def load_streaming_services():
+    """Load streaming services from JSON config file"""
+    config_file = os.path.join(os.path.dirname(__file__), 'services.json')
+    
+    # Default services if config file doesn't exist
+    default_services = [
+        {'name': 'Angel Studios', 'url': 'https://www.angel.com/', 'enabled': True},
+        {'name': 'PureFlix', 'url': 'https://www.pureflix.com/', 'enabled': True},
+        {'name': 'Dove Channel', 'url': 'https://www.dovechannel.com/', 'enabled': True},
+        {'name': 'YouTube', 'url': 'https://www.youtube.com/', 'enabled': True}
+    ]
+    
+    try:
+        if os.path.exists(config_file):
+            with open(config_file, 'r') as f:
+                services = json.load(f)
+            xbmc.log(f"[{addon_name}] Loaded {len(services)} services from config", xbmc.LOGINFO)
+        else:
+            services = default_services
+            xbmc.log(f"[{addon_name}] Using default services", xbmc.LOGINFO)
+        
+        # Filter to only enabled services and add icon
+        enabled_services = []
+        for service in services:
+            if service.get('enabled', True):
+                enabled_services.append({
+                    'name': service['name'],
+                    'url': service['url'],
+                    'icon': 'DefaultVideo.png'
+                })
+        
+        return enabled_services
+        
+    except Exception as e:
+        xbmc.log(f"[{addon_name}] Error loading config: {str(e)}", xbmc.LOGERROR)
+        return [{'name': s['name'], 'url': s['url'], 'icon': 'DefaultVideo.png'} for s in default_services]
 
 def launch_brave_kiosk(url):
     """Launch Brave browser in kiosk mode with the specified URL"""
@@ -79,15 +94,22 @@ def launch_brave_kiosk(url):
 def show_streaming_menu():
     """Show the streaming services selection dialog"""
     
+    # Load services from config
+    streaming_services = load_streaming_services()
+    
+    if not streaming_services:
+        xbmcgui.Dialog().notification(addon_name, "No streaming services configured", xbmcgui.NOTIFICATION_WARNING)
+        return
+    
     # Create list of service names for the dialog
-    service_names = [service['name'] for service in STREAMING_SERVICES]
+    service_names = [service['name'] for service in streaming_services]
     
     # Show selection dialog
     dialog = xbmcgui.Dialog()
     selected = dialog.select("Select Streaming Service", service_names)
     
     if selected >= 0:
-        service = STREAMING_SERVICES[selected]
+        service = streaming_services[selected]
         xbmc.log(f"[{addon_name}] User selected: {service['name']}", xbmc.LOGINFO)
         
         # Show loading notification

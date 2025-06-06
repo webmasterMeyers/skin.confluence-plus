@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Angel Studios",
+        "url": "https://www.angel.com/",
+        "enabled": true
+    },
+    {
+        "name": "PureFlix", 
+        "url": "https://www.pureflix.com/",
+        "enabled": true
+    },
+    {
+        "name": "Dove Channel",
+        "url": "https://www.dovechannel.com/",
+        "enabled": true
+    },
+    {
+        "name": "YouTube",
+        "url": "https://www.youtube.com/",
+        "enabled": true
+    },
+    {
+        "name": "Netflix",
+        "url": "https://netflix.com",
+        "enabled": false
+    },
+    {
+        "name": "Disney+",
+        "url": "https://www.disneyplus.com",
+        "enabled": false
+    }
+] 

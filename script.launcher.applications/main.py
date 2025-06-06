@@ -7,24 +7,48 @@ import xbmcgui
 import subprocess
 import sys
 import os
+import json
 
 # Get addon handle
 addon = xbmcaddon.Addon()
 addon_name = addon.getAddonInfo('name')
 
-# Applications configuration
-APPLICATIONS = [
-    {
-        'name': 'Shotwell',
-        'commands': ['shotwell', '/usr/bin/shotwell'],
-        'icon': 'DefaultProgram.png'
-    },
-    {
-        'name': 'BackInTime',
-        'commands': ['backintime-qt', 'backintime-gtk', '/usr/bin/backintime-qt', '/usr/bin/backintime-gtk'],
-        'icon': 'DefaultProgram.png'
-    }
-]
+def load_applications():
+    """Load applications from JSON config file"""
+    config_file = os.path.join(os.path.dirname(__file__), 'applications.json')
+    
+    # Default applications if config file doesn't exist
+    default_apps = [
+        {'name': 'Shotwell', 'command': 'shotwell', 'enabled': True},
+        {'name': 'BackInTime', 'command': 'backintime-qt', 'enabled': True}
+    ]
+    
+    try:
+        if os.path.exists(config_file):
+            with open(config_file, 'r') as f:
+                apps = json.load(f)
+            xbmc.log(f"[{addon_name}] Loaded {len(apps)} applications from config", xbmc.LOGINFO)
+        else:
+            apps = default_apps
+            xbmc.log(f"[{addon_name}] Using default applications", xbmc.LOGINFO)
+        
+        # Filter to only enabled apps and convert to expected format
+        enabled_apps = []
+        for app in apps:
+            if app.get('enabled', True):
+                # Split command by spaces and commas to support alternatives
+                commands = [cmd.strip() for cmd in app['command'].replace(',', ' ').split()]
+                enabled_apps.append({
+                    'name': app['name'],
+                    'commands': commands,
+                    'icon': 'DefaultProgram.png'
+                })
+        
+        return enabled_apps
+        
+    except Exception as e:
+        xbmc.log(f"[{addon_name}] Error loading config: {str(e)}", xbmc.LOGERROR)
+        return [{'name': a['name'], 'commands': [a['command']], 'icon': 'DefaultProgram.png'} for a in default_apps]
 
 def find_executable(commands):
     """Find the first available executable from a list of possible commands"""
@@ -67,15 +91,22 @@ def launch_application(app_config):
 def show_applications_menu():
     """Show the applications selection dialog"""
     
+    # Load applications from config
+    applications = load_applications()
+    
+    if not applications:
+        xbmcgui.Dialog().notification(addon_name, "No applications configured", xbmcgui.NOTIFICATION_WARNING)
+        return
+    
     # Create list of application names for the dialog
-    app_names = [app['name'] for app in APPLICATIONS]
+    app_names = [app['name'] for app in applications]
     
     # Show selection dialog
     dialog = xbmcgui.Dialog()
     selected = dialog.select("Select Application", app_names)
     
     if selected >= 0:
-        app = APPLICATIONS[selected]
+        app = applications[selected]
         xbmc.log(f"[{addon_name}] User selected: {app['name']}", xbmc.LOGINFO)
         
         # Show loading notification

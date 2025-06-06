@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Shotwell",
+        "command": "shotwell",
+        "enabled": true
+    },
+    {
+        "name": "BackInTime",
+        "command": "backintime-qt",
+        "enabled": true
+    },
+    {
+        "name": "GIMP",
+        "command": "gimp",
+        "enabled": false
+    },
+    {
+        "name": "LibreOffice Writer",
+        "command": "libreoffice --writer",
+        "enabled": false
+    },
+    {
+        "name": "File Manager",
+        "command": "nautilus",
+        "enabled": false
+    },
+    {
+        "name": "Terminal",
+        "command": "gnome-terminal",
+        "enabled": false
+    }
+] 
