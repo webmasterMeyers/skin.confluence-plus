@@ -852,6 +852,44 @@
 					<!--Buttons for the grouplist -->
 					<include>HomeSubMenuAddons</include>
 				</control>
+				<control type="grouplist" id="9018">
+					<include>HomeSubMenuCommonValues</include>
+					<onleft>9018</onleft>
+					<onright>9018</onright>
+					<visible>Container(9000).HasFocus(15)</visible>
+					<!-- Buttons for the grouplist -->
+					<item>
+						<label>Angel Studios</label>
+						<onclick>RunScript(script.launch.browser,https://watch.angel.com)</onclick>
+					</item>
+					<item>
+						<label>PureFlix</label>
+						<onclick>RunScript(script.launch.browser,https://www.pureflix.com)</onclick>
+					</item>
+					<item>
+						<label>Dove Channel</label>
+						<onclick>RunScript(script.launch.browser,https://www.dovechannel.com)</onclick>
+					</item>
+					<item>
+						<label>YouTube</label>
+						<onclick>RunScript(script.launch.browser,https://www.youtube.com)</onclick>
+					</item>
+				</control>
+				<control type="grouplist" id="9019">
+					<include>HomeSubMenuCommonValues</include>
+					<onleft>9019</onleft>
+					<onright>9019</onright>
+					<visible>Container(9000).HasFocus(16)</visible>
+					<!-- Buttons for the grouplist -->
+					<item>
+						<label>Shotwell</label>
+						<onclick>RunInTerminal(shotwell)</onclick>
+					</item>
+					<item>
+						<label>BackInTime</label>
+						<onclick>RunInTerminal(backintime-qt4)</onclick>
+					</item>
+				</control>
 			</control>
 			<control type="image">
 				<left>-150</left>
@@ -1002,6 +1040,13 @@
 						<thumb />
 						<visible>[!Skin.HasSetting(HomeMenuNoMovieButton) + !System.IsMaster] | [!Skin.HasSetting(MasterHomeMenuNoMovieButton) + System.IsMaster]</visible>
 					</item>
+					<item id="15">
+						<label>Streaming</label>
+						<onclick>noop</onclick>
+						<icon />
+						<thumb />
+						<visible>true</visible>
+					</item>
 					<item id="11">
 						<label>31955</label>
 						<onclick condition="System.IsMaster | !Skin.HasSetting(HomeMenuTVShowUsePlaylist)">ActivateWindow(Videos,TVShowTitles,return)</onclick>
@@ -1018,6 +1063,13 @@
 						<icon />
 						<thumb />
 						<visible>[!Skin.HasSetting(HomeMenuNoMusicButton) + !System.IsMaster] | [!Skin.HasSetting(MasterHomeMenuNoMusicButton) + System.IsMaster]</visible>
+					</item>
+					<item id="16">
+						<label>Applications</label>
+						<onclick>noop</onclick>
+						<icon />
+						<thumb />
+						<visible>true</visible>
 					</item>
 					<item id="1">
 						<label>31957</label>
