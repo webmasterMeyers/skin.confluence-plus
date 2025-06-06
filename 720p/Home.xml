@@ -1010,7 +1010,7 @@
 					</item>
 					<item id="15">
 						<label>STREAMING</label>
-						<onclick>ActivateWindow(Videos,plugin://script.streaming.launcher/)</onclick>
+						<onclick>RunScript(script.streaming.launcher)</onclick>
 						<icon/>
 						<thumb/>
 						<visible>true</visible>
@@ -1049,7 +1049,7 @@
 					</item>
 					<item id="16">
 						<label>APPLICATIONS</label>
-						<onclick>ActivateWindow(Videos,plugin://script.applications.launcher/)</onclick>
+						<onclick>RunScript(script.applications.launcher)</onclick>
 						<icon/>
 						<thumb/>
 						<visible>true</visible>
