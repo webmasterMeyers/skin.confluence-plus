@@ -858,104 +858,6 @@
 					<!--Buttons for the grouplist -->
 					<include>HomeSubMenuAddons</include>
 				</control>
-				<control type="grouplist" id="9018">
-					<include>HomeSubMenuCommonValues</include>
-					<onleft>9018</onleft>
-					<onright>9018</onright>
-					<visible>Container(9000).HasFocus(15)</visible>
-					<!-- Buttons for the grouplist -->
-					<control type="button">
-						<description>Angel Studios Button</description>
-						<left>0</left>
-						<top>0</top>
-						<width>300</width>
-						<height>40</height>
-						<label>Angel Studios</label>
-						<font>font12</font>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<texturefocus border="5">HomeSubFO.png</texturefocus>
-						<texturenofocus border="5">HomeSubNF.png</texturenofocus>
-						<onclick>System.Exec(brave-browser --kiosk https://www.angel.com/watch)</onclick>
-					</control>
-					<control type="button">
-						<description>PureFlix Button</description>
-						<left>0</left>
-						<top>45</top>
-						<width>300</width>
-						<height>40</height>
-						<label>PureFlix</label>
-						<font>font12</font>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<texturefocus border="5">HomeSubFO.png</texturefocus>
-						<texturenofocus border="5">HomeSubNF.png</texturenofocus>
-						<onclick>System.Exec(brave-browser --kiosk https://www.pureflix.com/watch)</onclick>
-					</control>
-					<control type="button">
-						<description>Dove Channel Button</description>
-						<left>0</left>
-						<top>90</top>
-						<width>300</width>
-						<height>40</height>
-						<label>Dove Channel</label>
-						<font>font12</font>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<texturefocus border="5">HomeSubFO.png</texturefocus>
-						<texturenofocus border="5">HomeSubNF.png</texturenofocus>
-						<onclick>System.Exec(brave-browser --kiosk https://www.dovechannel.com/watch)</onclick>
-					</control>
-					<control type="button">
-						<description>YouTube Button</description>
-						<left>0</left>
-						<top>135</top>
-						<width>300</width>
-						<height>40</height>
-						<label>YouTube</label>
-						<font>font12</font>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<texturefocus border="5">HomeSubFO.png</texturefocus>
-						<texturenofocus border="5">HomeSubNF.png</texturenofocus>
-						<onclick>System.Exec(brave-browser --kiosk https://www.youtube.com)</onclick>
-					</control>
-				</control>
-				<control type="grouplist" id="9019">
-					<include>HomeSubMenuCommonValues</include>
-					<onleft>9019</onleft>
-					<onright>9019</onright>
-					<visible>Container(9000).HasFocus(16)</visible>
-					<!-- Buttons for the grouplist -->
-					<control type="button">
-						<description>Shotwell Button</description>
-						<left>0</left>
-						<top>0</top>
-						<width>300</width>
-						<height>40</height>
-						<label>Shotwell</label>
-						<font>font12</font>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<texturefocus border="5">HomeSubFO.png</texturefocus>
-						<texturenofocus border="5">HomeSubNF.png</texturenofocus>
-						<onclick>System.Exec(shotwell)</onclick>
-					</control>
-					<control type="button">
-						<description>BackInTime Button</description>
-						<left>0</left>
-						<top>45</top>
-						<width>300</width>
-						<height>40</height>
-						<label>BackInTime</label>
-						<font>font12</font>
-						<textcolor>grey2</textcolor>
-						<focusedcolor>white</focusedcolor>
-						<texturefocus border="5">HomeSubFO.png</texturefocus>
-						<texturenofocus border="5">HomeSubNF.png</texturenofocus>
-						<onclick>System.Exec(backintime-qt4)</onclick>
-					</control>
-				</control>
 			</control>
 			<control type="image">
 				<left>-100</left>
@@ -1107,8 +1009,8 @@
 						<visible>[!Skin.HasSetting(HomeMenuNoMovieButton) + !System.IsMaster] | [!Skin.HasSetting(MasterHomeMenuNoMovieButton) + System.IsMaster]</visible>
 					</item>
 					<item id="15">
-						<label>Streaming</label>
-						<onclick>noop</onclick>
+						<label>STREAMING</label>
+						<onclick>ActivateWindow(Videos,plugin://script.streaming.launcher/)</onclick>
 						<icon/>
 						<thumb/>
 						<visible>true</visible>
@@ -1146,8 +1048,8 @@
 						<visible>System.HasMediaDVD | System.HasMediaAudioCD</visible>
 					</item>
 					<item id="16">
-						<label>Applications</label>
-						<onclick>noop</onclick>
+						<label>APPLICATIONS</label>
+						<onclick>ActivateWindow(Videos,plugin://script.applications.launcher/)</onclick>
 						<icon/>
 						<thumb/>
 						<visible>true</visible>
