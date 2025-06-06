@@ -1009,8 +1009,8 @@
 						<visible>[!Skin.HasSetting(HomeMenuNoMovieButton) + !System.IsMaster] | [!Skin.HasSetting(MasterHomeMenuNoMovieButton) + System.IsMaster]</visible>
 					</item>
 					<item id="15">
-						<label>STREAMING</label>
-						<onclick>ActivateWindow(custom_Streaming)</onclick>
+										<label>STREAMING</label>
+				<onclick>RunScript(script.launcher.streaming)</onclick>
 						<icon/>
 						<thumb/>
 						<visible>true</visible>
@@ -1048,8 +1048,8 @@
 						<visible>System.HasMediaDVD | System.HasMediaAudioCD</visible>
 					</item>
 					<item id="16">
-						<label>APPLICATIONS</label>
-						<onclick>ActivateWindow(custom_Applications)</onclick>
+										<label>APPLICATIONS</label>
+				<onclick>RunScript(script.launcher.applications)</onclick>
 						<icon/>
 						<thumb/>
 						<visible>true</visible>
